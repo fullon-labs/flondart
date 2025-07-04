@@ -1,7 +1,7 @@
 name: flondart
-description: Armonia Meta Chain RPC API client in Dart language
+description: FullOn Network RPC API client in Dart language
 version: 0.4.8+20220825
-homepage: https://github.com/armoniax/flutter-sdk-flondart
+homepage: https://github.com/fullon-labs/flondart
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
