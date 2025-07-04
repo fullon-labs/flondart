@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../flondart.dart';
 import './conversion_helper.dart';
 
 part 'account.g.dart';
@@ -25,41 +26,44 @@ class Account with ConversionHelper {
   @JsonKey(name: 'created')
   DateTime? created;
 
+  @JsonKey(name: 'creator')
+  String? creator;
+
   @JsonKey(name: 'core_liquid_balance')
   Holding? coreLiquidBalance;
 
-  @JsonKey(name: 'ram_quota', fromJson: ConversionHelper.getIntFromJson)
-  int? ramQuota;
+  @JsonKey(name: 'is_res_unlimited')
+  bool is_res_unlimited;
 
-  @JsonKey(name: 'net_weight', fromJson: ConversionHelper.getIntFromJson)
-  int? netWeight;
+  @JsonKey(name: 'gas_reserved')
+  int? gas_reserved;
 
-  @JsonKey(name: 'cpu_weight', fromJson: ConversionHelper.getIntFromJson)
-  int? cpuWeight;
+  @JsonKey(name: 'gas_max')
+  int? gas_max;
 
-  @JsonKey(name: 'net_limit')
-  Limit? netLimit;
+  @JsonKey(name: 'net_res')
+  NetResources? netReources;
 
-  @JsonKey(name: 'cpu_limit')
-  Limit? cpuLimit;
+  @JsonKey(name: 'cpu_res')
+  CpuResources? cpuReources;
 
-  @JsonKey(name: 'ram_usage', fromJson: ConversionHelper.getIntFromJson)
-  int? ramUsage;
-
-  @JsonKey(name: 'total_resources')
-  TotalResources? totalResources;
+  @JsonKey(name: 'ram_res')
+  RamResources? ramReources;
 
   @JsonKey(name: 'permissions')
   List<Permission>? permissions;
-
-  @JsonKey(name: 'self_delegated_bandwidth')
-  SelfDelegatedBandwidth? selfDelegatedBandwidth;
 
   @JsonKey(name: 'refund_request')
   RefundRequest? refundRequest;
 
   @JsonKey(name: 'voter_info')
   VoterInfo? voterInfo;
+
+  @JsonKey(name: 'subjective_cpu_bill')
+  int subjectiveCpuBill;
+
+  @JsonKey(name: 'eosio_any_linked_actions')
+  List<Action>? eosioAnyLinkedActions;
 
   Account(this.accountName, this.headBlockNum);
 
@@ -72,26 +76,26 @@ class Account with ConversionHelper {
   String toString() => this.toJson().toString();
 }
 
-@JsonSerializable()
-class Limit with ConversionHelper {
-  @JsonKey(name: 'used', fromJson: ConversionHelper.getIntFromJson)
-  int? used;
+// @JsonSerializable()
+// class Limit with ConversionHelper {
+//   @JsonKey(name: 'used', fromJson: ConversionHelper.getIntFromJson)
+//   int? used;
 
-  @JsonKey(name: 'available', fromJson: ConversionHelper.getIntFromJson)
-  int? available;
+//   @JsonKey(name: 'available', fromJson: ConversionHelper.getIntFromJson)
+//   int? available;
 
-  @JsonKey(name: 'max', fromJson: ConversionHelper.getIntFromJson)
-  int? max;
+//   @JsonKey(name: 'max', fromJson: ConversionHelper.getIntFromJson)
+//   int? max;
 
-  Limit();
+//   Limit();
 
-  factory Limit.fromJson(Map<String, dynamic> json) => _$LimitFromJson(json);
+//   factory Limit.fromJson(Map<String, dynamic> json) => _$LimitFromJson(json);
 
-  Map<String, dynamic> toJson() => _$LimitToJson(this);
+//   Map<String, dynamic> toJson() => _$LimitToJson(this);
 
-  @override
-  String toString() => this.toJson().toString();
-}
+//   @override
+//   String toString() => this.toJson().toString();
+// }
 
 // this is not using json serializer as it is customized serializer to
 // convert the amount currency split by space
@@ -100,12 +104,13 @@ class Limit with ConversionHelper {
 class Holding {
   double? amount;
   String? currency;
-
+  String? amountStr;
   Holding.fromJson(String json) {
     List<String> segments = json.split(" ");
     if (segments.length != 2) {
       return;
     }
+    amountStr = segments[0];
     this.amount = double.parse(segments[0]);
     this.currency = segments[1];
   }
@@ -183,54 +188,111 @@ class AuthKey {
 }
 
 @JsonSerializable()
-class TotalResources with ConversionHelper {
-  @JsonKey(name: 'owner')
-  String? owner;
+class NetResources with ConversionHelper {
+  @JsonKey(name: 'used')
+  int used;
 
-  @JsonKey(name: 'net_weight')
-  Holding? netWeight;
+  @JsonKey(name: 'max')
+  int max;
 
-  @JsonKey(name: 'cpu_weight')
-  Holding? cpuWeight;
+  NetResources();
 
-  @JsonKey(name: 'ram_bytes', fromJson: ConversionHelper.getIntFromJson)
-  int? ramBytes;
+  factory NetResources.fromJson(Map<String, dynamic> json) =>
+      _$NetResourcesFromJson(json);
 
-  TotalResources();
-
-  factory TotalResources.fromJson(Map<String, dynamic> json) =>
-      _$TotalResourcesFromJson(json);
-
-  Map<String, dynamic> toJson() => _$TotalResourcesToJson(this);
+  Map<String, dynamic> toJson() => _$NetResourcesToJson(this);
 
   @override
   String toString() => this.toJson().toString();
 }
 
 @JsonSerializable()
-class SelfDelegatedBandwidth {
-  @JsonKey(name: 'from')
-  String? from;
+class CpuResources with ConversionHelper {
+  @JsonKey(name: 'used')
+  int used;
 
-  @JsonKey(name: 'to')
-  String? to;
+  @JsonKey(name: 'max')
+  int max;
 
-  @JsonKey(name: 'net_weight')
-  Holding? netWeight;
+  CpuResources();
 
-  @JsonKey(name: 'cpu_weight')
-  Holding? cpuWeight;
+  factory CpuResources.fromJson(Map<String, dynamic> json) =>
+      _$CpuResourcesFromJson(json);
 
-  SelfDelegatedBandwidth();
-
-  factory SelfDelegatedBandwidth.fromJson(Map<String, dynamic> json) =>
-      _$SelfDelegatedBandwidthFromJson(json);
-
-  Map<String, dynamic> toJson() => _$SelfDelegatedBandwidthToJson(this);
+  Map<String, dynamic> toJson() => _$CpuResourcesToJson(this);
 
   @override
   String toString() => this.toJson().toString();
 }
+
+@JsonSerializable()
+class RamResources with ConversionHelper {
+  @JsonKey(name: 'used')
+  int used;
+
+  @JsonKey(name: 'max')
+  int max;
+
+  RamResources();
+
+  factory RamResources.fromJson(Map<String, dynamic> json) =>
+      _$RamResourcesFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RamResourcesToJson(this);
+
+  @override
+  String toString() => this.toJson().toString();
+}
+
+// @JsonSerializable()
+// class TotalResources with ConversionHelper {
+//   @JsonKey(name: 'owner')
+//   String? owner;
+
+//   @JsonKey(name: 'net_weight')
+//   Holding? netWeight;
+
+//   @JsonKey(name: 'cpu_weight')
+//   Holding? cpuWeight;
+
+//   @JsonKey(name: 'ram_bytes', fromJson: ConversionHelper.getIntFromJson)
+//   int? ramBytes;
+
+//   TotalResources();
+
+//   factory TotalResources.fromJson(Map<String, dynamic> json) =>
+//       _$TotalResourcesFromJson(json);
+
+//   Map<String, dynamic> toJson() => _$TotalResourcesToJson(this);
+
+//   @override
+//   String toString() => this.toJson().toString();
+// }
+
+// @JsonSerializable()
+// class SelfDelegatedBandwidth {
+//   @JsonKey(name: 'from')
+//   String? from;
+
+//   @JsonKey(name: 'to')
+//   String? to;
+
+//   @JsonKey(name: 'net_weight')
+//   Holding? netWeight;
+
+//   @JsonKey(name: 'cpu_weight')
+//   Holding? cpuWeight;
+
+//   SelfDelegatedBandwidth();
+
+//   factory SelfDelegatedBandwidth.fromJson(Map<String, dynamic> json) =>
+//       _$SelfDelegatedBandwidthFromJson(json);
+
+//   Map<String, dynamic> toJson() => _$SelfDelegatedBandwidthToJson(this);
+
+//   @override
+//   String toString() => this.toJson().toString();
+// }
 
 @JsonSerializable()
 class RefundRequest {
