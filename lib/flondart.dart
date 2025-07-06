@@ -5,6 +5,7 @@ library flondart;
 
 export 'src/client.dart';
 export 'src/models/account.dart';
+export 'src/models/currency.dart';
 export 'src/models/node_info.dart';
 export 'src/models/block.dart';
 export 'src/models/action.dart';
