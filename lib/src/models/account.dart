@@ -190,10 +190,10 @@ class AuthKey {
 @JsonSerializable()
 class NetResources with ConversionHelper {
   @JsonKey(name: 'used')
-  int used;
+  int? used;
 
   @JsonKey(name: 'max')
-  int max;
+  int? max;
 
   NetResources();
 
@@ -209,10 +209,10 @@ class NetResources with ConversionHelper {
 @JsonSerializable()
 class CpuResources with ConversionHelper {
   @JsonKey(name: 'used')
-  int used;
+  int? used;
 
   @JsonKey(name: 'max')
-  int max;
+  int? max;
 
   CpuResources();
 
@@ -228,10 +228,10 @@ class CpuResources with ConversionHelper {
 @JsonSerializable()
 class RamResources with ConversionHelper {
   @JsonKey(name: 'used')
-  int used;
+  int? used;
 
   @JsonKey(name: 'max')
-  int max;
+  int? max;
 
   RamResources();
 
