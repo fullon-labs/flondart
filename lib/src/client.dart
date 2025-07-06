@@ -338,10 +338,10 @@ class FLONClient {
   }
 
   /// Get FLON account currency stats
-  Future<CurrencyStatus> getCurrencyStats(String code, String symbol) async {
+  Future<CurrencyStats> getCurrencyStats(String code, String symbol) async {
     return this._post('/chain/get_currency_stats',
         {'code': code, 'symbol': symbol}).then((data) {
-      return CurrencyStatus.fromJson(data[symbol]);
+      return CurrencyStats.fromJson(data[symbol]);
     });
   }
 
