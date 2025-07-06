@@ -33,7 +33,7 @@ class Account with ConversionHelper {
   Holding? coreLiquidBalance;
 
   @JsonKey(name: 'is_res_unlimited')
-  bool is_res_unlimited;
+  bool? is_res_unlimited;
 
   @JsonKey(name: 'gas_reserved')
   int? gas_reserved;
@@ -60,7 +60,7 @@ class Account with ConversionHelper {
   VoterInfo? voterInfo;
 
   @JsonKey(name: 'subjective_cpu_bill')
-  int subjectiveCpuBill;
+  int? subjectiveCpuBill;
 
   @JsonKey(name: 'eosio_any_linked_actions')
   List<Action>? eosioAnyLinkedActions;
