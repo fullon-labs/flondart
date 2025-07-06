@@ -19,7 +19,7 @@ class FLONClient {
   // Map<String, ecc.FLONPrivateKey> keys = Map();
 
   /// Converts abi files between binary and structured form (`abi.abi.json`) */
-  // late Map<String, Type> abiTypes;
+  late Map<String, Type> abiTypes;
   late Map<String, Type> transactionTypes;
   String? chainId;
 
@@ -35,8 +35,8 @@ class FLONClient {
   }) {
     //_mapKeys(privateKeys);
 
-    // abiTypes = ser.getTypesFromAbi(
-    //     ser.createInitialTypes(), Abi.fromJson(json.decode(abiJson)));
+    abiTypes = ser.getTypesFromAbi(
+        ser.createInitialTypes(), Abi.fromJson(json.decode(abiJson)));
     transactionTypes = ser.getTypesFromAbi(
         ser.createInitialTypes(), Abi.fromJson(json.decode(transactionJson)));
   }
