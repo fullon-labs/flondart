@@ -14,7 +14,9 @@ dependencies:
   common_utils: ^2.1.0
   get: ^4.6.6
   flondart_ecc:
-    path: submodules/flondart_ecc
+    git: 
+      url: https://github.com/fullon-labs/flondart-ecc.git
+      ref: main
 
 dev_dependencies:
   test: ^1.19.2
