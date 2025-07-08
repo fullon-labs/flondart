@@ -39,7 +39,7 @@ class Account with ConversionHelper {
   int? gas_reserved;
 
   @JsonKey(name: 'gas_max')
-  int? gas_max;
+  String? gas_max;
 
   @JsonKey(name: 'net_res')
   NetResources? netReources;
@@ -85,7 +85,7 @@ class Account with ConversionHelper {
 //   int? available;
 
 //   @JsonKey(name: 'max', fromJson: ConversionHelper.getIntFromJson)
-//   int? max;
+//   String? max;
 
 //   Limit();
 
@@ -193,7 +193,7 @@ class NetResources with ConversionHelper {
   int? used;
 
   @JsonKey(name: 'max')
-  int? max;
+  String? max;
 
   NetResources();
 
@@ -212,7 +212,7 @@ class CpuResources with ConversionHelper {
   int? used;
 
   @JsonKey(name: 'max')
-  int? max;
+  String? max;
 
   CpuResources();
 
@@ -231,7 +231,7 @@ class RamResources with ConversionHelper {
   int? used;
 
   @JsonKey(name: 'max')
-  int? max;
+  String? max;
 
   RamResources();
 

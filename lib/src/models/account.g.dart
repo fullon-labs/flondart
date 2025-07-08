@@ -26,7 +26,7 @@ Account _$AccountFromJson(Map<String, dynamic> json) => Account(
           : Holding.fromJson(json['core_liquid_balance'] as String)
       ..is_res_unlimited = json['is_res_unlimited'] as bool? ?? false
       ..gas_reserved = ConversionHelper.getIntFromJson(json['gas_reserved'])
-      ..gas_max = ConversionHelper.getIntFromJson(json['gas_max'])
+      ..gas_max = json['gas_max'] as String?
       ..netReources = json['net_res'] == null
           ? null
           : NetResources.fromJson(json['net_res'] as Map<String, dynamic>)
@@ -128,7 +128,7 @@ Map<String, dynamic> _$AuthKeyToJson(AuthKey instance) => <String, dynamic>{
 //<-- NET Resources --->
 NetResources _$NetResourcesFromJson(Map<String, dynamic> json) => NetResources()
   ..used = json['used'] as int
-  ..max = json['max'] as int;
+  ..max = json['max'] as String?;
 
 Map<String, dynamic> _$NetResourcesToJson(NetResources instance) =>
     <String, dynamic>{'used': instance.used, 'max': instance.max};
@@ -136,7 +136,7 @@ Map<String, dynamic> _$NetResourcesToJson(NetResources instance) =>
 //<-- CPU Resources --->
 CpuResources _$CpuResourcesFromJson(Map<String, dynamic> json) => CpuResources()
   ..used = json['used'] as int
-  ..max = json['max'] as int;
+  ..max = json['max'] as String?;
 
 Map<String, dynamic> _$CpuResourcesToJson(CpuResources instance) =>
     <String, dynamic>{'used': instance.used, 'max': instance.max};
@@ -144,7 +144,7 @@ Map<String, dynamic> _$CpuResourcesToJson(CpuResources instance) =>
 //<-- RAM Resources --->
 RamResources _$RamResourcesFromJson(Map<String, dynamic> json) => RamResources()
   ..used = json['used'] as int
-  ..max = json['max'] as int;
+  ..max = json['max'] as String?;
 
 Map<String, dynamic> _$RamResourcesToJson(RamResources instance) =>
     <String, dynamic>{'used': instance.used, 'max': instance.max};
