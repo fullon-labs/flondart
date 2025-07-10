@@ -39,7 +39,7 @@ class Account with ConversionHelper {
   int? gas_reserved;
 
   @JsonKey(name: 'gas_max')
-  String? gas_max;
+  BitInt? gas_max;
 
   @JsonKey(name: 'net_res')
   NetResources? netReources;

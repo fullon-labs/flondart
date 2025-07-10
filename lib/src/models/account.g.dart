@@ -26,7 +26,7 @@ Account _$AccountFromJson(Map<String, dynamic> json) => Account(
           : Holding.fromJson(json['core_liquid_balance'] as String)
       ..is_res_unlimited = json['is_res_unlimited'] as bool? ?? false
       ..gas_reserved = ConversionHelper.getIntFromJson(json['gas_reserved'])
-      ..gas_max = json['gas_max'] as String?
+      ..gas_max = BigInt.parse(json['gas_max'] as String)
       ..netReources = json['net_res'] == null
           ? null
           : NetResources.fromJson(json['net_res'] as Map<String, dynamic>)
