@@ -128,7 +128,7 @@ Map<String, dynamic> _$AuthKeyToJson(AuthKey instance) => <String, dynamic>{
 //<-- NET Resources --->
 NetResources _$NetResourcesFromJson(Map<String, dynamic> json) => NetResources()
   ..used = json['used'] as int
-  ..max = json['max'] as String?;
+  ..max = BigInt.parse((json['max'] ?? "0").toString());
 
 Map<String, dynamic> _$NetResourcesToJson(NetResources instance) =>
     <String, dynamic>{'used': instance.used, 'max': instance.max};
@@ -136,7 +136,7 @@ Map<String, dynamic> _$NetResourcesToJson(NetResources instance) =>
 //<-- CPU Resources --->
 CpuResources _$CpuResourcesFromJson(Map<String, dynamic> json) => CpuResources()
   ..used = json['used'] as int
-  ..max = json['max'] as String?;
+  ..max = BigInt.parse((json['max'] ?? "0").toString());
 
 Map<String, dynamic> _$CpuResourcesToJson(CpuResources instance) =>
     <String, dynamic>{'used': instance.used, 'max': instance.max};
@@ -144,7 +144,7 @@ Map<String, dynamic> _$CpuResourcesToJson(CpuResources instance) =>
 //<-- RAM Resources --->
 RamResources _$RamResourcesFromJson(Map<String, dynamic> json) => RamResources()
   ..used = json['used'] as int
-  ..max = json['max'] as String?;
+  ..max = BigInt.parse((json['max'] ?? "0").toString());
 
 Map<String, dynamic> _$RamResourcesToJson(RamResources instance) =>
     <String, dynamic>{'used': instance.used, 'max': instance.max};

@@ -76,27 +76,6 @@ class Account with ConversionHelper {
   String toString() => this.toJson().toString();
 }
 
-// @JsonSerializable()
-// class Limit with ConversionHelper {
-//   @JsonKey(name: 'used', fromJson: ConversionHelper.getIntFromJson)
-//   int? used;
-
-//   @JsonKey(name: 'available', fromJson: ConversionHelper.getIntFromJson)
-//   int? available;
-
-//   @JsonKey(name: 'max', fromJson: ConversionHelper.getIntFromJson)
-//   String? max;
-
-//   Limit();
-
-//   factory Limit.fromJson(Map<String, dynamic> json) => _$LimitFromJson(json);
-
-//   Map<String, dynamic> toJson() => _$LimitToJson(this);
-
-//   @override
-//   String toString() => this.toJson().toString();
-// }
-
 // this is not using json serializer as it is customized serializer to
 // convert the amount currency split by space
 /// Structure for the JSON string format e.g. '1.0000 FLON', it splits that by
@@ -193,7 +172,7 @@ class NetResources with ConversionHelper {
   int? used;
 
   @JsonKey(name: 'max')
-  String? max;
+  BigInt? max;
 
   NetResources();
 
@@ -212,7 +191,7 @@ class CpuResources with ConversionHelper {
   int? used;
 
   @JsonKey(name: 'max')
-  String? max;
+  BigInt? max;
 
   CpuResources();
 
@@ -231,7 +210,7 @@ class RamResources with ConversionHelper {
   int? used;
 
   @JsonKey(name: 'max')
-  String? max;
+  BigInt? max;
 
   RamResources();
 
@@ -243,56 +222,6 @@ class RamResources with ConversionHelper {
   @override
   String toString() => this.toJson().toString();
 }
-
-// @JsonSerializable()
-// class TotalResources with ConversionHelper {
-//   @JsonKey(name: 'owner')
-//   String? owner;
-
-//   @JsonKey(name: 'net_weight')
-//   Holding? netWeight;
-
-//   @JsonKey(name: 'cpu_weight')
-//   Holding? cpuWeight;
-
-//   @JsonKey(name: 'ram_bytes', fromJson: ConversionHelper.getIntFromJson)
-//   int? ramBytes;
-
-//   TotalResources();
-
-//   factory TotalResources.fromJson(Map<String, dynamic> json) =>
-//       _$TotalResourcesFromJson(json);
-
-//   Map<String, dynamic> toJson() => _$TotalResourcesToJson(this);
-
-//   @override
-//   String toString() => this.toJson().toString();
-// }
-
-// @JsonSerializable()
-// class SelfDelegatedBandwidth {
-//   @JsonKey(name: 'from')
-//   String? from;
-
-//   @JsonKey(name: 'to')
-//   String? to;
-
-//   @JsonKey(name: 'net_weight')
-//   Holding? netWeight;
-
-//   @JsonKey(name: 'cpu_weight')
-//   Holding? cpuWeight;
-
-//   SelfDelegatedBandwidth();
-
-//   factory SelfDelegatedBandwidth.fromJson(Map<String, dynamic> json) =>
-//       _$SelfDelegatedBandwidthFromJson(json);
-
-//   Map<String, dynamic> toJson() => _$SelfDelegatedBandwidthToJson(this);
-
-//   @override
-//   String toString() => this.toJson().toString();
-// }
 
 @JsonSerializable()
 class RefundRequest {
