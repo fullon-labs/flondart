@@ -411,10 +411,12 @@ class SerialBuffer {
 
   /// Get a public key */
   String getPublicKey() {
-    var type = get();
+    var type = get(); // int
     var data = getUint8List(numeric.publicKeyDataSize);
-    return numeric
-        .publicKeyToString(numeric.IKey(type as numeric.KeyType, data));
+
+    /// 1. 转为 KeyType
+    final keyType = numeric.KeyType.values[type];
+    return numeric.publicKeyToString(numeric.IKey(keyType, data));
   }
 
   /// Append a private key */
@@ -459,15 +461,13 @@ Type createType({
     dynamic data, {
     SerializerState? state,
     required bool allowExtensions,
-  })?
-      serialize,
+  })? serialize,
   dynamic Function(
     Type self,
     SerialBuffer buffer, {
     SerializerState? state,
     required bool allowExtensions,
-  })?
-      deserialize,
+  })? deserialize,
   String baseName: "",
   List<Field> fields: const [],
   Type? extensionOf,
