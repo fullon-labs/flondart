@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:flondart/src/constant_config.dart';
 import 'package:pointycastle/pointycastle.dart';
 
 /// @module Numeric
@@ -259,7 +260,7 @@ String keyToString(IKey key, String suffix, String prefix) {
 
 /// Convert key in `s` to binary form
 IKey stringToPublicKey(String s) {
-  if (s.substring(0, 2) == 'AM') {
+  if (s.substring(0, 2) == ConstantConfig.addressPrefix) {
     var whole = base58ToBinary(publicKeyDataSize + 4, s.substring(2));
     var key = IKey(KeyType.k1, new Uint8List(publicKeyDataSize));
     for (var i = 0; i < publicKeyDataSize; ++i) {
@@ -294,16 +295,16 @@ publicKeyToString(IKey key) {
   }
 }
 
-/// If a key is in the legacy format (`AM` prefix), then convert it to the new format (`PUB_K1_`).
+/// If a key is in the legacy format (`xx` prefix), then convert it to the new format (`PUB_K1_`).
 /// Leaves other formats untouched
 String convertLegacyPublicKey(String s) {
-  if (s.substring(0, 2) == 'AM') {
+  if (s.substring(0, 2) == ConstantConfig.addressPrefix) {
     return publicKeyToString(stringToPublicKey(s));
   }
   return s;
 }
 
-/// If a key is in the legacy format (`AM` prefix), then convert it to the new format (`PUB_K1_`).
+/// If a key is in the legacy format (`xx` prefix), then convert it to the new format (`PUB_K1_`).
 /// Leaves other formats untouched
 List<String> convertLegacyPublicKeys(List<String> keys) =>
     keys.map((item) => convertLegacyPublicKey(item)).toList();
